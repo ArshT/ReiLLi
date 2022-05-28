@@ -22,7 +22,7 @@ class DQL_agent:
         self.render = render
         self.solved_reward = solved_reward
 
-    def train(self):
+    def train(self,model_dir=None):
         scores = []
 
         for i in range(self.num_episodes):
@@ -50,8 +50,18 @@ class DQL_agent:
                     print("Solved!!!!!")
                     break
 
-    def test(self):
+        if model_dir:
+            save_dir = os.path.join(model_dir,"dql"+self.env_name+".pth")
+            torch.save(self.agent.actor_critic.state_dict(),save_dir)
+
+
+    def test(self,model_dir=None):
         total_score = 0
+
+        if model_dir:
+            save_dir = os.path.join(model_dir,"dql"+self.env_name+".pth")
+            self.agent.actor_critic.load_state_dict(torch.load(save_dir))
+
         for i in range(self.num_test_episodes):
             done = False
             observation = self.env.reset()

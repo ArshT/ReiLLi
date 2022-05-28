@@ -26,8 +26,8 @@ K_epochs = 30
 start_action_std = 0.55
 action_std_decay_rate = 0.05
 min_action_std = 0.05
-action_std_decay_ep = 200
-
+action_std_decay_ep = 175
+model_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\models"
 
 ppo_agent = PPO_agent(env_name=env_name,continuous=True,num_episodes=num_episodes,update_batch_size=update_batch_size,gamma=gamma,solved_reward=solved_reward,actor_alpha=actor_alpha,critic_alpha=critic_alpha,
                       eps_clip=eps_clip,K_epochs=K_epochs,render=render,num_test_episodes=num_test_episodes,fc1_dims=fc1_dims,fc2_dims=fc2_dims,device=device,
@@ -35,5 +35,5 @@ ppo_agent = PPO_agent(env_name=env_name,continuous=True,num_episodes=num_episode
 
 
 
-ppo_agent.train()
-ppo_agent.test()
+ppo_agent.train(model_dir=model_dir)
+ppo_agent.test(model_dir = model_dir)

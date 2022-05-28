@@ -51,6 +51,7 @@ class TD3_agent:
                 avg_score = np.mean(scores[max(0, i-10):(i+1)])
                 avg_score_100 = np.mean(scores[max(0, i-100):(i+1)])
                 print('episode: ', i+1,'score: ', score,' average_score_10 %.3f' % avg_score,' average_score_100 %.3f' % avg_score_100)
+                print()
 
                 if avg_score_100 > self.solved_reward:
                     print("Solved!!!!!")

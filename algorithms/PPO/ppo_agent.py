@@ -2,6 +2,8 @@ import numpy as np
 import gym
 from algorithms.PPO.ppo import Agent_Discrete
 from algorithms.PPO.ppo_continuous import Agent_Continuous
+import os
+import torch
 
 
 
@@ -11,6 +13,7 @@ class PPO_agent:
                  start_action_std=None,action_std_decay_rate=None,min_action_std=None,action_std_decay_ep=None):
 
         self.env = gym.make(env_name)
+        self.env_name = env_name
         self.continuous = continuous
 
         if continuous:
@@ -35,7 +38,8 @@ class PPO_agent:
         self.solved_reward = solved_reward
         self.action_std_decay_ep = action_std_decay_ep
 
-    def train(self):
+
+    def train(self,model_dir = None):
         scores = []
 
         for i in range(self.num_episodes):
@@ -66,8 +70,24 @@ class PPO_agent:
                     print("Solved!!!!")
                     break
 
-    def test(self):
+        if model_dir:
+            if self.continuous:
+                save_dir = os.path.join(model_dir,"ppo_continuous_dict_"+self.env_name+".pth")
+            else:
+                save_dir = os.path.join(model_dir,"ppo_dict_"+self.env_name+".pth")
+
+            torch.save(self.agent.actor_critic.state_dict(),save_dir)
+
+    def test(self,model_dir = None):
         total_score = 0
+
+        if model_dir:
+            if self.continuous:
+                save_dir = os.path.join(model_dir,"ppo_continuous_dict_"+self.env_name+".pth")
+            else:
+                save_dir = os.path.join(model_dir,"ppo_dict_"+self.env_name+".pth")
+
+            self.agent.actor_critic.load_state_dict(torch.load(save_dir))
 
         for i in range(self.num_test_episodes):
             done = False
