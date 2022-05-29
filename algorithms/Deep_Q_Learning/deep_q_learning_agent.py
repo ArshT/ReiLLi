@@ -1,5 +1,8 @@
 import numpy as np
 import gym
+import os
+import torch
+from utils.plot import RewardPlot
 from algorithms.Deep_Q_Learning.dql import Agent
 
 
@@ -10,6 +13,7 @@ class DQL_agent:
         self.env = gym.make(env_name)
         input_dims = self.env.observation_space.shape[0]
         n_actions = self.env.action_space.n
+        self.env_name = env_name
 
         self.agent = Agent(input_dims=input_dims,n_actions=n_actions,alpha=alpha,gamma=gamma,batch_size=batch_size,
                            replace=replace,epsilon=epsilon,fc1_dims=fc1_dims,fc2_dims=fc2_dims,
@@ -22,8 +26,11 @@ class DQL_agent:
         self.render = render
         self.solved_reward = solved_reward
 
-    def train(self,model_dir=None):
+    def train(self,model_dir=None,plot_dir=None):
         scores = []
+
+        if plot_dir:
+            plot_graph = RewardPlot(env_name=self.env_name,algo_name="DQL",save_dir=plot_dir)
 
         for i in range(self.num_episodes):
             done = False
@@ -46,21 +53,26 @@ class DQL_agent:
                 print('episode: ', i+1,'score: ', score,' average_score_10 %.3f' % avg_score,' average_score_100 %.3f' % avg_score_100,' epsilon %.3f' % self.agent.epsilon)
                 print()
 
-                if avg_score_100 > self.solved_reward:
-                    print("Solved!!!!!")
-                    break
+                if not plot_dir:
+                    if avg_score_100 > self.solved_reward:
+                        print("Solved!!!!")
+                        break
 
         if model_dir:
-            save_dir = os.path.join(model_dir,"dql"+self.env_name+".pth")
-            torch.save(self.agent.actor_critic.state_dict(),save_dir)
+            save_dir = os.path.join(model_dir,"dql_dict_"+self.env_name+".pth")
+            torch.save(self.agent.Q_eval.state_dict(),save_dir)
+
+
+        if plot_dir:
+            plot_graph.plot_reward_curve(episode_reward_list=scores)
 
 
     def test(self,model_dir=None):
         total_score = 0
 
         if model_dir:
-            save_dir = os.path.join(model_dir,"dql"+self.env_name+".pth")
-            self.agent.actor_critic.load_state_dict(torch.load(save_dir))
+            save_dir = os.path.join(model_dir,"dql_dict_"+self.env_name+".pth")
+            self.agent.Q_eval.load_state_dict(torch.load(save_dir))
 
         for i in range(self.num_test_episodes):
             done = False

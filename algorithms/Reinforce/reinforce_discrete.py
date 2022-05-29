@@ -35,6 +35,7 @@ class Agent():
         self.reward_memory = []
         self.log_prob_memory = torch.empty((1,)).to(self.device)
         self.terminal_memory = []
+        self.input_dims = input_dims
 
         self.alpha = alpha
         self.gamma = gamma
@@ -94,7 +95,7 @@ class Agent():
         self.reward_memory = []
         self.log_prob_memory = torch.empty((1,)).to(self.device)
         self.terminal_memory = []
-        self.state_memory = torch.empty((1,input_dims))
+        self.state_memory = torch.empty((1,self.input_dims))
         self.action_memory = torch.empty((1,)).to(self.device)
 
 
