@@ -25,3 +25,7 @@ The following algorithms are implemented in this project:
 | :-------------------------:|:-------------------------: |
 | ![](plots/REINFORCE_CartPole-v0.png) |  ![](plots/A2C_CartPole-v0.png) |
 
+| PPO CartPole-v0  | PPO LunarLander-v2 |
+| :-------------------------:|:-------------------------: |
+| ![](plots/PPO_CartPole-v0.png) |  ![](plots/PPO_LunarLander-v2.png) |
+
