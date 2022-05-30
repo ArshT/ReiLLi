@@ -29,3 +29,7 @@ The following algorithms are implemented in this project:
 | :-------------------------:|:-------------------------: |
 | ![](plots/PPO_CartPole-v0.png) |  ![](plots/PPO_LunarLander-v2.png) |
 
+| DQL LunarLander-v2  | DDQL LunarLander-v2 |
+| :-------------------------:|:-------------------------: |
+| ![](plots/DQL_LunarLander-v2.png) |  ![](plots/DDQL_LunarLander-v2.png) |
+
