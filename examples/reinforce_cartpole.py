@@ -29,5 +29,5 @@ reinforce_agent = REINFORCE_agent(env_name=env_name,num_episodes=num_episodes,up
                     render=render,num_test_episodes=num_test_episodes,alpha=alpha,fc1_dims=fc1_dims,fc2_dims=fc2_dims,device=device)
 
 
-reinforce_agent.train(model_dir=model_dir) #,plot_dir=plot_dir
+reinforce_agent.train(model_dir=model_dir,plot_dir=plot_dir)
 reinforce_agent.test(model_dir=model_dir)

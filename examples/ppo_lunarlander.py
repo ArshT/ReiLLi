@@ -24,11 +24,12 @@ critic_alpha = 0.0003
 eps_clip = 0.2
 K_epochs = 30
 model_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\models"
+plot_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\plots"
 
 
 ppo_agent = PPO_agent(env_name=env_name,continuous=False,num_episodes=num_episodes,update_batch_size=update_batch_size,gamma=gamma,solved_reward=solved_reward,actor_alpha=actor_alpha,critic_alpha=critic_alpha,
                                  eps_clip=eps_clip,K_epochs=K_epochs,render=render,num_test_episodes=num_test_episodes,fc1_dims=fc1_dims,fc2_dims=fc2_dims,device=device)
 
 
-ppo_agent.train(model_dir=model_dir)
+ppo_agent.train(model_dir=model_dir,plot_dir=plot_dir)
 ppo_agent.test(model_dir = model_dir)

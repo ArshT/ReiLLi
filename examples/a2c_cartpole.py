@@ -21,11 +21,12 @@ solved_reward = 190
 update_batch_size = 10
 actor_alpha = 0.0003
 critic_alpha = 0.0003
+model_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\models"
+plot_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\plots"
 
-
-reinforce_agent = A2C_agent(env_name=env_name,num_episodes=num_episodes,update_batch_size=update_batch_size,gamma=gamma,solved_reward=solved_reward,bootstrapping=False,
+a2c_agent = A2C_agent(env_name=env_name,num_episodes=num_episodes,update_batch_size=update_batch_size,gamma=gamma,solved_reward=solved_reward,bootstrapping=False,
                             render=render,num_test_episodes=num_test_episodes,actor_alpha=actor_alpha,critic_alpha=critic_alpha,fc1_dims=fc1_dims,fc2_dims=fc2_dims,device=device)
 
 
-reinforce_agent.train()
-reinforce_agent.test()
+a2c_agent.train(model_dir=model_dir,plot_dir=plot_dir)
+a2c_agent.test(model_dir=model_dir)
