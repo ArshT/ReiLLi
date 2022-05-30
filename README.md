@@ -21,6 +21,14 @@ The following algorithms are implemented in this project:
 
 
 ## Results
+The code was tested on the following algorithms:
+- LunarLander-v2
+- Cartpole-v0
+- LunarLanderConitnuous-v2
+- BipedalWalker-v3
+The project is specifically written for OpenAI gym environments with vector representations for states.
+
+
 | REINFORCE CartPole-v0  | A2C CartPole-v0 |
 | :-------------------------:|:-------------------------: |
 | ![](plots/REINFORCE_CartPole-v0.png) |  ![](plots/A2C_CartPole-v0.png) |
