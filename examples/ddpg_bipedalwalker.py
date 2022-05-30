@@ -10,7 +10,7 @@ sys.path.append(directory)
 from algorithms.DDPG.ddpg_agent import DDPG_agent
 
 env_name = "BipedalWalker-v3"
-num_episodes = 5000
+num_episodes = 2000
 gamma = 0.99
 render=True
 num_test_episodes = 50
@@ -27,6 +27,8 @@ min_action_std = 0.05
 action_std_decay_ep = 200
 tau = 0.001
 buffer_size = 1000000
+model_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\models"
+plot_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\plots"
 
 
 ddpg_agent = DDPG_agent(env_name=env_name,num_episodes=num_episodes,batch_size=batch_size,gamma=gamma,solved_reward=solved_reward,tau=tau,start_action_std=start_action_std,
@@ -35,5 +37,5 @@ ddpg_agent = DDPG_agent(env_name=env_name,num_episodes=num_episodes,batch_size=b
 
 
 
-ddpg_agent.train()
-ddpg_agent.test()
+ddpg_agent.train(model_dir=model_dir,plot_dir=plot_dir)
+ddpg_agent.test(model_dir=model_dir)
