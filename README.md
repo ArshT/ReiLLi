@@ -21,5 +21,7 @@ The following algorithms are implemented in this project:
 
 
 ## Results
-REINFORCE CartPole-v0
-![dqn](plots/REINFORCE_CartPole-v0.png)
+| REINFORCE CartPole-v0  | A2C CartPole-v0 |
+| :-------------------------:|:-------------------------: |
+| ![](plots/REINFORCE_CartPole-v0.png) |  ![](plots/A2C_CartPole-v0.png) |
+
