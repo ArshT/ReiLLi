@@ -21,6 +21,6 @@ The following algorithms are implemented in this project:
 
 
 ## Results
-| PPO Continuous RoboschoolHalfCheetah-v1  | PPO Continuous RoboschoolHalfCheetah-v1 |
+| PPO Continuous RoboschoolHalfCheetah-v1  |
 | :-------------------------:|:-------------------------: |
-| ![](https://github.com/nikhilbarhate99/PPO-PyTorch/blob/master/PPO_gifs/RoboschoolHalfCheetah-v1/PPO_RoboschoolHalfCheetah-v1_gif_0.gif) |  ![](https://github.com/nikhilbarhate99/PPO-PyTorch/blob/master/PPO_figs/RoboschoolHalfCheetah-v1/PPO_RoboschoolHalfCheetah-v1_fig_0.png) |
+| ![](https://github.com/nikhilbarhate99/PPO-PyTorch/blob/master/PPO_gifs/RoboschoolHalfCheetah-v1/PPO_RoboschoolHalfCheetah-v1_gif_0.gif) | 
