@@ -27,6 +27,8 @@ The code was tested on the following algorithms:
 - Cartpole-v0
 - LunarLanderConitnuous-v2
 - BipedalWalker-v3
+
+
 The project is specifically written for OpenAI gym environments with vector representations for states.
 
 
