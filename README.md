@@ -1,6 +1,7 @@
 # ReiLLi
 
-ReiLLi is a PyTorch project that consists of easy-to-understand and reliable implementations of several Model-Free Reinforcement Learning algorithms. The project is primarily intended for beginners to help them understand and conveniently use Model-Free RL algorithms  for training agents  that can perform optimally in several popular OpenAI gym environments. However, the project can also be utilized for more complex purposes, though that might require some changes in the original code. 
+ReiLLi is a PyTorch project that consists of easy-to-understand and reliable implementations of several Model-Free Reinforcement Learning algorithms. The project is primarily intended for beginners to help them understand and conveniently use Model-Free RL algorithms  for training agents  that can perform optimally in several popular OpenAI gym environments. However, the project can also be utilized for more complex purposes, though that might require some changes in the original code.
+ 
 
 ## Algorithms
 The following algorithms are implemented in this project:
