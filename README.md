@@ -45,3 +45,8 @@ The project is specifically written for OpenAI gym environments with vector repr
 | :-------------------------:|:-------------------------: |
 | ![](plots/PPO_CartPole-v0.png) |  ![](plots/PPO_LunarLander-v2.png) |
 
+
+| PPO BipedalWalker-v3  | TD3 BipedalWalker-v3 |
+| :-------------------------:|:-------------------------: |
+| ![](plots/PPO_Continuous_BipedalWalker-v3.png) |  ![](plots/PPO_LunarLander-v2.png) |
+
