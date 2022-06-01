@@ -41,5 +41,5 @@ td3_agent = TD3_agent(env_name=env_name,num_episodes=num_episodes,batch_size=bat
 
 
 
-td3_agent.train(model_dir=model_dir,plot_dir=plot_dir)
+#td3_agent.train(model_dir=model_dir,plot_dir=plot_dir)
 td3_agent.test(model_dir=model_dir)
