@@ -22,7 +22,7 @@ The following algorithms are implemented in this project:
 
 
 ## Results
-The code was tested on the following algorithms:
+The code was tested on the following environments:
 - LunarLander-v2
 - Cartpole-v0
 - LunarLanderConitnuous-v2
