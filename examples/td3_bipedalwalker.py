@@ -10,13 +10,13 @@ sys.path.append(directory)
 from algorithms.TD3.td3_agent import TD3_agent
 
 env_name = "BipedalWalker-v3"
-num_episodes = 5000
+num_episodes = 10
 gamma = 0.99
 render=True
 num_test_episodes = 50
 fc1_dims = 400
 fc2_dims = 300
-device = 'cuda'
+device = 'cpu'
 solved_reward = 290
 batch_size = 512
 actor_alpha = 0.00005
@@ -30,6 +30,8 @@ buffer_size = 1000000
 target_action_noise_clip = 0.25
 n_update_iter = 500
 action_update_delay = 2
+model_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\models"
+plot_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\plots"
 
 
 td3_agent = TD3_agent(env_name=env_name,num_episodes=num_episodes,batch_size=batch_size,gamma=gamma,solved_reward=solved_reward,tau=tau,start_action_std=start_action_std,
@@ -39,5 +41,5 @@ td3_agent = TD3_agent(env_name=env_name,num_episodes=num_episodes,batch_size=bat
 
 
 
-td3_agent.train()
-td3_agent.test()
+td3_agent.train(model_dir=model_dir,plot_dir=plot_dir)
+td3_agent.test(model_dir=model_dir)

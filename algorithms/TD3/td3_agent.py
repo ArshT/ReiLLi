@@ -1,6 +1,9 @@
 import numpy as np
 import gym
 from algorithms.TD3.td3 import Agent
+import os
+import torch
+from utils.plot import RewardPlot
 
 
 class TD3_agent:
@@ -10,6 +13,7 @@ class TD3_agent:
         self.env = gym.make(env_name)
         input_dims = self.env.observation_space.shape[0]
         action_dims = self.env.action_space.shape[0]
+        self.env_name = env_name
 
         self.agent = Agent(input_dims=input_dims,fc1_dims=fc1_dims,fc2_dims=fc2_dims,action_dims=action_dims,actor_alpha=actor_alpha,critic_alpha=critic_alpha,gamma=gamma,start_action_std=start_action_std,
                            min_action_std=min_action_std,action_std_decay_rate=action_std_decay_rate,action_update_delay=action_update_delay,n_update_iter=n_update_iter,
@@ -26,8 +30,11 @@ class TD3_agent:
         self.batch_size = batch_size
 
 
-    def train(self):
+    def train(self,model_dir=None,plot_dir=None):
         scores = []
+
+        if plot_dir:
+            plot_graph = RewardPlot(env_name=self.env_name,algo_name="TD3",save_dir=plot_dir)
 
         for i in range(self.num_episodes):
             done = False
@@ -53,12 +60,26 @@ class TD3_agent:
                 print('episode: ', i+1,'score: ', score,' average_score_10 %.3f' % avg_score,' average_score_100 %.3f' % avg_score_100)
                 print()
 
-                if avg_score_100 > self.solved_reward:
-                    print("Solved!!!!!")
-                    break
+                if not plot_dir:
+                    if avg_score_100 > self.solved_reward:
+                        print("Solved!!!!")
+                        break
 
-    def test(self):
+
+        if model_dir:
+            save_dir = os.path.join(model_dir,"td3_dict_"+self.env_name+".pth")
+            torch.save(self.agent.actor.state_dict(),save_dir)
+
+        if plot_dir:
+            plot_graph.plot_reward_curve(episode_reward_list=scores)
+
+    def test(self,model_dir=None):
         total_score = 0
+
+        if model_dir:
+            save_dir = os.path.join(model_dir,"td3_dict_"+self.env_name+".pth")
+            self.agent.actor.load_state_dict(torch.load(save_dir))
+
         for i in range(self.num_test_episodes):
             done = False
             observation = self.env.reset()
