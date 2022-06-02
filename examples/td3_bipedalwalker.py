@@ -10,7 +10,7 @@ sys.path.append(directory)
 from algorithms.TD3.td3_agent import TD3_agent
 
 env_name = "BipedalWalker-v3"
-num_episodes = 10
+num_episodes = 1000
 gamma = 0.99
 render=True
 num_test_episodes = 50
@@ -41,5 +41,5 @@ td3_agent = TD3_agent(env_name=env_name,num_episodes=num_episodes,batch_size=bat
 
 
 
-#td3_agent.train(model_dir=model_dir,plot_dir=plot_dir)
+td3_agent.train(model_dir=model_dir,plot_dir=plot_dir)
 td3_agent.test(model_dir=model_dir)
