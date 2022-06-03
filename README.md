@@ -19,6 +19,7 @@ The following algorithms are implemented in this project:
 - The 'examples' folder contains example files for every algorithm. These examples can be followed to use any algorithm for training agents for environments of one's choice.
 - The train function is used for training the agent and the test function is used for testing the trained agent. The test function can also be used to run pre-trained agents using the dict files stored in the 'models' folder.
 - The model_dir argument in the 'train' and 'test' functions allows one to save the weights of the trained agent and also use it at test-time. Furthermore, one can also use the plot_dir argument in the 'train' function to save reward plots for the training. The only caveat while using plot_dir is that the training will run for as many episodes as defined for the num_episodes argument.
+- Parallel agent training is supported for REINFORCE, A2C and PPO.
 
 
 ## Results
@@ -41,12 +42,12 @@ The project is specifically written for OpenAI gym environments with vector repr
 | :-------------------------:|:-------------------------: |
 | ![](plots/DQL_LunarLander-v2.png) |  ![](plots/DDQL_LunarLander-v2.png) |
 
-| PPO CartPole-v0  | PPO LunarLander-v2 |
+| PPO CartPole-v0  | PPO BipedalWalker-v3 |
 | :-------------------------:|:-------------------------: |
-| ![](plots/PPO_CartPole-v0.png) |  ![](plots/PPO_LunarLander-v2.png) |
+| ![](plots/PPO_CartPole-v0.png) |  ![](plots/PPO_Continuous_BipedalWalker-v3.png) |
 
 
-| PPO BipedalWalker-v3  | TD3 BipedalWalker-v3 |
+| TD3 BipedalWalker-v3  | SAC BipedalWalker-v3 |
 | :-------------------------:|:-------------------------: |
-| ![](plots/PPO_Continuous_BipedalWalker-v3.png) |  ![](plots/TD3_BipedalWalker-v3.png) |
+| ![](plots/TD3_BipedalWalker-v3.png) |  ![](plots/SAC_BipedalWalker-v3.png) |
 
