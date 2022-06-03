@@ -25,8 +25,11 @@ if __name__ == '__main__':
     fc2_dims = 128
     alpha = 0.001
     gamma = 0.99
-    num_test_episodes = 10
+    num_test_episodes = 50
     render = True
+
+    model_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\models"
+    plot_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\plots"
 
 
     reinforce_multi_agent = Reinforce_multi_agent(env_name=env_name,num_agents=num_agents,max_rounds=max_rounds,max_timesteps_per_ep=max_timestep_per_ep,

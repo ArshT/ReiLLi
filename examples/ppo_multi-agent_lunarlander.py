@@ -15,7 +15,7 @@ if __name__ == '__main__':
     max_timestep_per_ep = 500
     update_timestep = 2500
     solved_reward = 200
-    max_rounds = 500
+    max_rounds = 200
 
     fc1_dims = 256
     fc2_dims = 256
@@ -31,8 +31,10 @@ if __name__ == '__main__':
     action_std_decay_round = 10
     render = True
     num_test_episodes = 50
+    model_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\models"
+    plot_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\plots"
 
-    
+
 
     ppo_multi_agent = PPO_multi_agent(env_name=env_name,num_agents=num_agents,max_rounds=max_rounds,max_timesteps_per_ep=max_timestep_per_ep,
                                   update_timestep=update_timestep,solved_reward=solved_reward,fc1_dims=fc1_dims,fc2_dims=fc2_dims,actor_alpha=actor_lr,
@@ -41,4 +43,4 @@ if __name__ == '__main__':
                                   render=render)
 
     ppo_multi_agent.train()
-    ppo.PPO_multi_agent.test()
+    ppo_multi_agent.test()

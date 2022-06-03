@@ -10,6 +10,9 @@ import warnings
 warnings.filterwarnings("ignore")
 import gym
 from algorithms.Reinforce.reinforce_discrete import Agent
+from utils.plot import RewardPlot
+import os
+import torch
 
 
 Msg = namedtuple('Msg', ['agent', 'reached', 'avg_reward'])
@@ -129,12 +132,16 @@ class Reinforce_multi_agent:
     self.reinforce = Agent(alpha=alpha,gamma=gamma,input_dims=input_dims,n_actions=action_dims,fc1_dims=fc1_dims,fc2_dims=fc2_dims,device=self.device)
 
 
-  def train(self):
+  def train(self,model_dir = None,plot_dir=None):
     print("#################################")
     print(self.env_name)
     print("Number of Agents: {}".format(self.num_agents))
     print("#################################\n")
 
+    if plot_dir:
+        plot_graph = RewardPlot(env_name=self.env_name,algo_name="REINFORCE_Parallel",save_dir=plot_dir)
+
+    scores = []
     for round in range(self.max_rounds):
       print("Round:",round+1)
 
@@ -173,6 +180,7 @@ class Reinforce_multi_agent:
 
           print("#####################################################################################")
           print("Average Score:", avg_score / self.num_agents)
+          scores.append(avg_score / self.num_agents)
 
           if (avg_score / self.num_agents) >= self.solved_reward:
             print("########SOLVED!!!##########")
@@ -187,9 +195,21 @@ class Reinforce_multi_agent:
       if solved_flag == True:
         break
 
-  def test(self):
+    if model_dir:
+        save_dir = os.path.join(model_dir,"reinforce_parallel_dict_"+self.env_name+".pth")
+        torch.save(self.reinforce.policy.state_dict(),save_dir)
+
+    if plot_dir:
+        plot_graph.plot_reward_curve(episode_reward_list=scores)
+
+
+  def test(self,model_dir = None):
     total_score = 0
     test_env = gym.make(self.env_name)
+
+    if model_dir:
+        save_dir = os.path.join(model_dir,"reinforce_parallel_dict_"+self.env_name+".pth")
+        self.reinforce.policy.load_state_dict(torch.load(save_dir))
 
     for i in range(self.num_test_episodes):
       done = False

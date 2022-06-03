@@ -9,6 +9,9 @@ import os
 import warnings
 warnings.filterwarnings("ignore")
 import gym
+from utils.plot import RewardPlot
+import os
+import torch
 
 from algorithms.A2C.a2c_discrete import Agent
 
@@ -104,7 +107,7 @@ class Multi_Agent(mp.Process):
     self.pipe_end.send(msg)
 
 class A2C_multi_agent:
-  def __init__(self,env_name,num_agents,max_rounds,max_timesteps_per_ep,update_timestep,solved_reward,fc1_dims,fc2_dims,actor_alpha,critic_alpha,gamma):
+  def __init__(self,env_name,num_agents,max_rounds,max_timesteps_per_ep,update_timestep,solved_reward,fc1_dims,fc2_dims,actor_alpha,critic_alpha,gamma,num_test_episodes,render):
 
     self.device = torch.device('cpu')
     self.env_name = env_name
@@ -113,6 +116,8 @@ class A2C_multi_agent:
     self.max_timesteps_per_ep = max_timesteps_per_ep
     self.update_timestep = update_timestep
     self.solved_reward = solved_reward
+    self.num_test_episodes = num_test_episodes
+    self.render = render
 
     sample_env = gym.make(env_name)
     input_dims = sample_env.observation_space.shape[0]
@@ -128,12 +133,16 @@ class A2C_multi_agent:
                      fc1_dims=fc1_dims,fc2_dims=fc2_dims,device=self.device,bootstrapping='False')
 
 
-  def train(self):
+  def train(self,model_dir = None,plot_dir=None):
     print("#################################")
     print(self.env_name)
     print("Number of Agents: {}".format(self.num_agents))
     print("#################################\n")
 
+    if plot_dir:
+        plot_graph = RewardPlot(env_name=self.env_name,algo_name="A2C_Parallel",save_dir=plot_dir)
+
+    scores = []
     for round in range(self.max_rounds):
       print("Round:",round+1)
 
@@ -172,6 +181,7 @@ class A2C_multi_agent:
 
           print("#####################################################################################")
           print("Average Score:", avg_score / self.num_agents)
+          scores.append(avg_score / self.num_agents)
 
           if (avg_score / self.num_agents) >= self.solved_reward:
             print("########SOLVED!!!##########")
@@ -186,9 +196,22 @@ class A2C_multi_agent:
       if solved_flag == True:
         break
 
-  def test(self):
+    if model_dir:
+        save_dir = os.path.join(model_dir,"a2c_parallel_dict_"+self.env_name+".pth")
+        torch.save(self.a2c.actor_critic.state_dict(),save_dir)
+
+    if plot_dir:
+        plot_graph.plot_reward_curve(episode_reward_list=scores)
+
+
+
+  def test(self,model_dir = None):
     total_score = 0
     test_env = gym.make(self.env_name)
+
+    if model_dir:
+        save_dir = os.path.join(model_dir,"a2c_parallel_dict_"+self.env_name+".pth")
+        self.a2c.actor_critic.load_state_dict(torch.load(save_dir))
 
     for i in range(self.num_test_episodes):
       done = False
@@ -199,8 +222,8 @@ class A2C_multi_agent:
         observation_, reward, done, info = test_env.step(action)
         observation = observation_
         score += reward
-        #if self.render:
-        #  test_env.render()
+        if self.render:
+            test_env.render()
 
       total_score += score
     print("Average Score:", total_score/self.num_test_episodes)

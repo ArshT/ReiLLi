@@ -20,19 +20,22 @@ if __name__ == '__main__':
     update_timestep = 2500
     solved_reward = 200
     max_rounds = 500
+    num_test_episodes = 50
 
     fc1_dims = 256
     fc2_dims = 128
     actor_alpha = 0.0001
     critic_alpha = 0.0003
     gamma = 0.99
-    K_epochs = 50
-    eps_clip = 0.2
-    continuous = False
+    render = True
+    model_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\models"
+    plot_dir = r"C:\Users\Arsh Tangri\Desktop\Reinforcement Learning\ReiLLi\plots"
+
 
     a2c_multi_agent = A2C_multi_agent(env_name=env_name,num_agents=num_agents,max_rounds=max_rounds,max_timesteps_per_ep=max_timestep_per_ep,
                                   update_timestep=update_timestep,solved_reward=solved_reward,fc1_dims=fc1_dims,fc2_dims=fc2_dims,actor_alpha=actor_alpha,gamma=gamma,
-                                  critic_alpha=critic_alpha)
+                                  critic_alpha=critic_alpha,num_test_episodes = num_test_episodes,render=render)
+
 
     a2c_multi_agent.train()
     a2c_multi_agent.test()
